@@ -19,6 +19,7 @@ import {
 const Layout = ({ children }) => {
   const [openSidebar, setOpenSidebar] = React.useState(false);
   const [auth, setAuth] = React.useState(false);
+
   const user = {
     username: 'sohaib benbouzid',
     email: 'sohaib.code@gmail.com',
@@ -60,6 +61,21 @@ const Layout = ({ children }) => {
     icon: <FcBarChart style={iconStyle} />,
     name: 'Devon',
   };
+
+  const footer = {
+    links: [
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'Hire Me' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'About Us' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'Blog' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'Licence' },
+    ],
+    copyright: {
+      date: '2020',
+      text: 'Sohaib Benbouzid',
+      link: 'https://www.sohaibbenbouzid.com',
+    },
+  };
+
   return (
     <div>
       <Loading />
@@ -82,7 +98,7 @@ const Layout = ({ children }) => {
         Logo={Logo}
       />
       <Main>{children}</Main>
-      <Footer />
+      <Footer footer={footer} />
     </div>
   );
 };
