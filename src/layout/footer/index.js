@@ -3,11 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles((theme) => ({
   root: {
+    width: '100%',
     display: 'flex',
-    padding: '4%',
+    zIndex: 400,
+    padding: '2%',
     color: theme.palette.text.primary,
     opacity: 0.8,
     flexWrap: 'row-revers',
+    marginTop: 'auto',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
       justifyContent: 'center',
@@ -30,20 +33,6 @@ const useStyle = makeStyles((theme) => ({
     },
   },
 }));
-
-const footer = {
-  links: [
-    { path: 'https://www.sohaibbenbouzid.com/', name: 'Hire Me' },
-    { path: 'https://www.sohaibbenbouzid.com/', name: 'About Us' },
-    { path: 'https://www.sohaibbenbouzid.com/', name: 'Blog' },
-    { path: 'https://www.sohaibbenbouzid.com/', name: 'Licence' },
-  ],
-  copyright: {
-    date: '2020',
-    text: 'Sohaib Benbouzid',
-    link: 'https://www.sohaibbenbouzid.com',
-  },
-};
 
 export default function Footer({ footer: { links, copyright } }) {
   const classes = useStyle();

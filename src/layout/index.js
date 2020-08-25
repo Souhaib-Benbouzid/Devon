@@ -5,6 +5,7 @@ import Navbar from './navbar';
 import Sidebar from './sidebar';
 import Footer from './footer';
 import Main from './main';
+import { makeStyles } from '@material-ui/core/styles';
 
 import avatar from '../assets/png/avatar.png';
 import {
@@ -16,7 +17,19 @@ import {
   FcBarChart,
 } from 'react-icons/fc';
 
+const useStyle = makeStyles((theme) => ({
+  root: {
+    minHeight: '100vh',
+    width: '100vw',
+    boxSizing: 'border-box',
+    overflowX: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
+
 const Layout = ({ children }) => {
+  const classes = useStyle();
   const [openSidebar, setOpenSidebar] = React.useState(false);
   const [auth, setAuth] = React.useState(false);
 
@@ -77,7 +90,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Loading />
       <Navbar
         navLinks={navLinks}

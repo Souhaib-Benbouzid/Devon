@@ -58,7 +58,7 @@ function HideOnScroll({ children }) {
   );
 }
 
-export default function HideAppBar({
+export default function ({
   setOpenSidebar,
   setAuth,
   auth,
@@ -79,93 +79,90 @@ export default function HideAppBar({
     setAnchorEl(null);
   };
   return (
-    <>
-      <HideOnScroll {...props}>
-        <AppBar className={classes.root} color='inherit' elevation={0}>
-          <Toolbar>
-            <Hidden lgUp>
+    <HideOnScroll {...props}>
+      <AppBar className={classes.root} color='inherit' elevation={0}>
+        <Toolbar>
+          <Hidden lgUp>
+            <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='menu'
+              onClick={setOpenSidebar}
+            >
+              <MdMenu className={classes.icon} />
+            </IconButton>
+          </Hidden>
+          <LogoCard logo={Logo} />
+          <Hidden mdDown>
+            <div className={classes.navbar}>
+              {navLinks.map((link, i) => (
+                <NavLink
+                  exact
+                  className={classes.navLink}
+                  activeClassName={classes.activeLink}
+                  to={link.path}
+                  key={i}
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </div>
+          </Hidden>
+          {auth ? (
+            <>
               <IconButton
-                edge='start'
-                className={classes.menuButton}
+                aria-label='account of current user'
+                aria-controls='menu-appbar'
+                aria-haspopup='true'
                 color='inherit'
-                aria-label='menu'
-                onClick={setOpenSidebar}
+                onClick={handleMenu}
               >
-                <MdMenu className={classes.icon} />
+                <MdAccountCircle className={classes.icon} />
               </IconButton>
-            </Hidden>
-            <LogoCard logo={Logo} />
-            <Hidden mdDown>
-              <div className={classes.navbar}>
-                {navLinks.map((link, i) => (
-                  <NavLink
-                    exact
-                    className={classes.navLink}
-                    activeClassName={classes.activeLink}
-                    to={link.path}
-                    ket={i}
-                  >
-                    {link.name}
-                  </NavLink>
-                ))}
-              </div>
-            </Hidden>
-            {auth ? (
-              <>
-                <IconButton
-                  aria-label='account of current user'
-                  aria-controls='menu-appbar'
-                  aria-haspopup='true'
-                  color='inherit'
-                  onClick={handleMenu}
-                >
-                  <MdAccountCircle className={classes.icon} />
-                </IconButton>
-                <Menu
-                  id='menu-appbar'
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <>
-                <NavLink
-                  exact
-                  className={classes.navLink}
-                  activeClassName={classes.activeLink}
-                  to={handleUserLinks.login.path}
-                >
-                  <Hidden mdDown>{handleUserLinks.login.icon}</Hidden>
-                  {handleUserLinks.login.name}
-                </NavLink>
-                <NavLink
-                  exact
-                  className={classes.navLink}
-                  activeClassName={classes.activeLink}
-                  to={handleUserLinks.register.path}
-                >
-                  <Hidden mdDown>{handleUserLinks.register.icon}</Hidden>
-                  {handleUserLinks.register.name}
-                </NavLink>
-              </>
-            )}
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
-      <Toolbar />
-    </>
+              <Menu
+                id='menu-appbar'
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <NavLink
+                exact
+                className={classes.navLink}
+                activeClassName={classes.activeLink}
+                to={handleUserLinks.login.path}
+              >
+                <Hidden mdDown>{handleUserLinks.login.icon}</Hidden>
+                {handleUserLinks.login.name}
+              </NavLink>
+              <NavLink
+                exact
+                className={classes.navLink}
+                activeClassName={classes.activeLink}
+                to={handleUserLinks.register.path}
+              >
+                <Hidden mdDown>{handleUserLinks.register.icon}</Hidden>
+                {handleUserLinks.register.name}
+              </NavLink>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+    </HideOnScroll>
   );
 }

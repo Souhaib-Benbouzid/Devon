@@ -1,5 +1,19 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default function main({ children }) {
-  return <div>{children}</div>;
+const useStyle = makeStyles((theme) => ({
+  root: {
+    height: 'fit-content',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    boxSizing: 'border-box',
+    overflowX: 'hidden',
+  },
+}));
+
+export default function Main({ children, ...rest }) {
+  const classes = useStyle();
+  return <div className={classes.root}>{children}</div>;
 }

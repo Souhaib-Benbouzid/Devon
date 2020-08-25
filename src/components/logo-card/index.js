@@ -38,7 +38,6 @@ export default function Logo({ logo, setOpenSidebar, isSidebar }) {
   return isSidebar ? (
     <div className={classes.root}>
       <Link
-        exact
         to={logo.path ? logo.path : '/'}
         onClick={setOpenSidebar ? () => setOpenSidebar(false) : null}
         className={classes.logoLink}
@@ -51,7 +50,6 @@ export default function Logo({ logo, setOpenSidebar, isSidebar }) {
     </div>
   ) : (
     <Link
-      exact
       to={logo.path ? logo.path : '/'}
       onClick={setOpenSidebar ? () => setOpenSidebar(false) : null}
       className={classes.navbar}

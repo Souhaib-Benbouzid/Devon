@@ -73,7 +73,7 @@ export default function SwipeableTemporaryDrawer({
     <div>
       <SwipeableDrawer
         anchor='left'
-        open={openSidebar}
+        open={!!openSidebar}
         onClose={toggleDrawer}
         onOpen={toggleDrawer}
       >
@@ -93,7 +93,7 @@ export default function SwipeableTemporaryDrawer({
                 button
                 className={classes.link}
                 disableGutters
-                onClick={() => setOpenSidebar(false)}
+                onClick={toggleDrawer}
               >
                 <NavLink
                   exact
