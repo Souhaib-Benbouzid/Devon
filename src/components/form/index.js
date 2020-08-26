@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { withRouter, Link, Redirect } from 'react-router-dom';
+
+import { MdLockOutline } from 'react-icons/md';
+
+import { auth } from '../../firebase';
+import { AuthContext } from '../../auth';
+
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
-import { Avatar } from '@material-ui/core';
-import { MdLockOutline } from 'react-icons/md';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -36,18 +41,21 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export const Form = ({ isLogin }) => {
+const Form = ({ isLogin, history }) => {
   const classes = useStyle();
-  const [values, setValues] = React.useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
+  const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
-    isSubmitting: false,
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const resetForm = () => {
     setValues({
       name: '',
       email: '',
@@ -56,15 +64,76 @@ export const Form = ({ isLogin }) => {
     });
   };
 
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const handleError = (error) => {
+    switch (error.code) {
+      case 'auth/user-not-found':
+        setFormError('there is no user with this information');
+        break;
+      case 'auth/weak-password':
+        setFormError('weak password.');
+        break;
+      case 'auth/email-already-in-use':
+        setFormError('This email is already in use. Please login');
+        break;
+      case 'auth/wrong-password':
+        setFormError('Wrong Credentials');
+        break;
+
+      default:
+        console.log(error.code);
+        setFormError('something went wrong');
+    }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    if (isLogin) {
+      // login
+      try {
+        // log the user
+        await auth.signInWithEmailAndPassword(values.email, values.password);
+      } catch (error) {
+        // handle error
+        handleError(error);
+      }
+    } else {
+      // register
+      try {
+        // register the user
+        await auth.createUserWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+        // handle success
+        await auth.currentUser.updateProfile({ displayName: values.name });
+        // redirect
+        history.push('/private');
+      } catch (error) {
+        // handle error
+        handleError(error);
+      }
+    }
+
+    // clean form
+    resetForm();
+    setIsSubmitting(false);
+  };
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to='/private' />;
+  }
+
   return (
     <Paper elevation={1} className={classes.root}>
       <Avatar className={classes.avatar}>
         <MdLockOutline />
       </Avatar>
       <Typography variant='h6'>{isLogin ? 'Log In' : 'Register'}</Typography>
+      <Typography variant='body2'>{formError}</Typography>
       <form onSubmit={handleSubmit} className={classes.form}>
         {isLogin ? null : (
           <TextField
@@ -115,9 +184,10 @@ export const Form = ({ isLogin }) => {
             shrink: true,
           }}
           fullWidth
+          autoComplete='off'
         />
         <Button
-          disabled={values.isSubmitting}
+          disabled={isSubmitting}
           type='submit'
           color='secondary'
           variant='contained'
@@ -158,9 +228,4 @@ export const Form = ({ isLogin }) => {
   );
 };
 
-/* <form className={classes.root}>
-      {values.map((value, i) => (
-        <TextField {...value} key={i} />
-      ))}
-      <Button color='inherit' type='submit'  disabled={} />
-    </form> */
+export default withRouter(Form);

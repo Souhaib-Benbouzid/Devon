@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Form } from '../../components/form';
+import Form from '../../components/form';
 
 const useStyle = makeStyles((theme) => ({
   root: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -6,12 +6,15 @@ import Slide from '@material-ui/core/Slide';
 import { NavLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
+import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
-
+import ToggleDarkMode from '../../components/dark-mode-toggle';
 import { MdAccountCircle, MdMenu } from 'react-icons/md';
 import LogoCard from '../../components/logo-card';
+import { AuthContext } from '../../auth';
+import { auth } from '../../firebase';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -60,8 +63,6 @@ function HideOnScroll({ children }) {
 
 export default function ({
   setOpenSidebar,
-  setAuth,
-  auth,
   navLinks,
   handleUserLinks,
   Logo,
@@ -70,6 +71,7 @@ export default function ({
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const { currentUser } = useContext(AuthContext);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,6 +80,7 @@ export default function ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <HideOnScroll {...props}>
       <AppBar className={classes.root} color='inherit' elevation={0}>
@@ -94,6 +97,7 @@ export default function ({
             </IconButton>
           </Hidden>
           <LogoCard logo={Logo} />
+
           <Hidden mdDown>
             <div className={classes.navbar}>
               {navLinks.map((link, i) => (
@@ -108,8 +112,10 @@ export default function ({
                 </NavLink>
               ))}
             </div>
+            <ToggleDarkMode />
           </Hidden>
-          {auth ? (
+
+          {currentUser ? (
             <>
               <IconButton
                 aria-label='account of current user'
@@ -135,8 +141,21 @@ export default function ({
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleClose}>
+                  {' '}
+                  <Typography type='submit' variant='text'>
+                    Profile
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Typography
+                    type='submit'
+                    variant='text'
+                    onClick={() => auth.signOut()}
+                  >
+                    Logout
+                  </Typography>
+                </MenuItem>
               </Menu>
             </>
           ) : (

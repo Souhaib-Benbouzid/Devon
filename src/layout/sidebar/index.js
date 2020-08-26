@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ToggleDarkMode from '../../components/dark-mode-toggle';
 
 import UserCard from '../../components/user-card';
 import { NavLink } from 'react-router-dom';
@@ -160,6 +161,9 @@ export default function SwipeableTemporaryDrawer({
               </ListItem>
             ))}
           </List>
+        </div>
+        <div style={{ margin: 'auto auto 30px auto' }}>
+          <ToggleDarkMode />
         </div>
       </SwipeableDrawer>
     </div>
