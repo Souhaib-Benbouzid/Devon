@@ -4,7 +4,7 @@ const layoutInitialState = {
   darkMode: localStorage.getItem('darkMode')
     ? localStorage.getItem('darkMode')
     : 'off',
-  language: 'en',
+  language: localStorage.getItem('i18nextLng'),
 };
 
 console.log(localStorage.getItem('darkMode'));
