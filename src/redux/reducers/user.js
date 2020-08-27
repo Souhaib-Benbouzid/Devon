@@ -2,7 +2,8 @@ import { actionTypes } from '../constants';
 
 const layoutInitialState = {
   loading: true,
-  user: {
+  isAuth: false,
+  data: {
     email: '',
     displayName: '',
   },

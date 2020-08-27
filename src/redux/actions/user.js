@@ -9,7 +9,7 @@ export const LOGIN_USER_REQUEST = () => ({
 
 export const LOGIN_USER_SUCCESS = (email, displayName) => ({
   type: actionTypes.LOGIN_USER_SUCCESS,
-  payload: { loading: false, user: { email, displayName } },
+  payload: { loading: false, data: { email, displayName }, isAuth: true },
 });
 export const LOGIN_USER_FAILURE = (error) => ({
   type: actionTypes.LOGIN_USER_FAILURE,
@@ -23,7 +23,7 @@ export const REGISTER_USER_REQUEST = () => ({
 });
 export const REGISTER_USER_SUCCESS = (email, displayName) => ({
   type: actionTypes.REGISTER_USER_SUCCESS,
-  payload: { loading: true, user: { email, displayName } },
+  payload: { loading: true, data: { email, displayName }, isAuth: true },
 });
 export const REGISTER_USER_FAILURE = (error) => ({
   type: actionTypes.REGISTER_USER_FAILURE,
@@ -60,6 +60,25 @@ export const logout = () => async (dispatch) => {
   await auth.signOut();
   dispatch({
     type: actionTypes.LOGOUT_USER,
-    payload: { loading: false, user: { email: '', displayName: '' } },
+    payload: {
+      loading: false,
+      data: { email: '', displayName: '' },
+      isAuth: false,
+    },
   });
+};
+
+export const checkLogin = () => async (dispatch) => {
+  try {
+    dispatch(LOGIN_USER_REQUEST());
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(LOGIN_USER_SUCCESS(user.email, user.displayName));
+      } else {
+        dispatch(logout());
+      }
+    });
+  } catch (error) {
+    dispatch(LOGIN_USER_FAILURE(error.message));
+  }
 };

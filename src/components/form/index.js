@@ -46,6 +46,9 @@ const useStyle = makeStyles((theme) => ({
 
 const Form = ({ isLogin, history }) => {
   const classes = useStyle();
+  const dispatch = useDispatch();
+  const { error, data, isAuth } = useSelector((state) => state.user);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
   const [values, setValues] = useState({
@@ -92,41 +95,16 @@ const Form = ({ isLogin, history }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (isLogin) {
-      // login
-      try {
-        // log the user
-        await auth.signInWithEmailAndPassword(values.email, values.password);
-      } catch (error) {
-        // handle error
-        handleError(error);
-      }
-    } else {
-      // register
-      try {
-        // register the user
-        await auth.createUserWithEmailAndPassword(
-          values.email,
-          values.password
-        );
-        // handle success
-        await auth.currentUser.updateProfile({ displayName: values.name });
-        // redirect
-        history.push('/private');
-      } catch (error) {
-        // handle error
-        handleError(error);
-      }
-    }
+    isLogin
+      ? dispatch(login(values.email, values.password))
+      : dispatch(register(values.name, values.email, values.password));
 
     // clean form
     resetForm();
     setIsSubmitting(false);
   };
 
-  const { currentUser } = useContext(AuthContext);
-
-  if (currentUser) {
+  if (isAuth) {
     return <Redirect to='/private' />;
   }
 
@@ -136,7 +114,7 @@ const Form = ({ isLogin, history }) => {
         <MdLockOutline />
       </Avatar>
       <Typography variant='h6'>{isLogin ? 'Log In' : 'Register'}</Typography>
-      <Typography variant='body2'>{formError}</Typography>
+      <Typography variant='body2'>{error}</Typography>
       <form onSubmit={handleSubmit} className={classes.form}>
         {isLogin ? null : (
           <TextField

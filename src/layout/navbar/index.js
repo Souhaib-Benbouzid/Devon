@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -13,8 +13,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import ToggleDarkMode from '../../components/dark-mode-toggle';
 import { MdAccountCircle, MdMenu } from 'react-icons/md';
 import LogoCard from '../../components/logo-card';
-import { AuthContext } from '../../auth';
-import { auth } from '../../firebase';
+
+import { logout } from '../../redux/actions/user';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -71,7 +73,8 @@ export default function ({
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const { currentUser } = useContext(AuthContext);
+  const { isAuth, data } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,7 +118,7 @@ export default function ({
             <ToggleDarkMode />
           </Hidden>
 
-          {currentUser ? (
+          {isAuth ? (
             <>
               <IconButton
                 aria-label='account of current user'
@@ -142,16 +145,15 @@ export default function ({
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>
-                  {' '}
-                  <Typography type='submit' variant='text'>
+                  <Typography type='submit' variant='body1'>
                     Profile
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <Typography
                     type='submit'
-                    variant='text'
-                    onClick={() => auth.signOut()}
+                    variant='body1'
+                    onClick={() => dispatch(logout())}
                   >
                     Logout
                   </Typography>

@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import { useSelect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { checkLogin } from './redux/actions/user';
 
 export const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  const user = useSelect((state) => state.user);
-
+  const isAuth = useSelector((state) => state.user.isAuth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkLogin());
+  }, [dispatch]);
   return (
     <Route
       {...rest}
       render={(routeProps) =>
-        !!user ? <RouteComponent {...routeProps} /> : <Redirect to={'/login'} />
+        isAuth ? <RouteComponent {...routeProps} /> : <Redirect to={'/login'} />
       }
     />
   );
