@@ -48,26 +48,28 @@ export default function DarkModeToggle(props) {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.layout.darkMode);
   const toggle = () => {
-    dispatch(toggleDarkMode(!darkMode));
-    window.localStorage.setItem('darkMode', !darkMode);
+    dispatch(toggleDarkMode());
   };
   const classes = useStyles();
   return (
-    <Switch
-      type='checkbox'
-      checked={darkMode}
-      className={classes.root}
-      onClick={toggle}
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
+    <>
+      <Switch
+        type='checkbox'
+        checked={darkMode === 'on' ? true : false}
+        className={classes.root}
+        onClick={toggle}
+        focusVisibleClassName={classes.focusVisible}
+        disableRipple
+        classes={{
+          root: classes.root,
+          switchBase: classes.switchBase,
+          thumb: classes.thumb,
+          track: classes.track,
+          checked: classes.checked,
+        }}
+        {...props}
+      />
+      {darkMode === 'on' ? '🌞' : '🌜'}
+    </>
   );
 }

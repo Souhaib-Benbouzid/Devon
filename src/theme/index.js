@@ -3,20 +3,22 @@ import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useSelector } from 'react-redux';
-// import darkPallet from './dark-palette';
-// import lightPallet from './light-palette';
-// import overrides from './overrides';
-// import typography from './typography';
 
 export const Theme = ({ children }) => {
-  //   const palette = darkMode ? darkPallet : lightPallet;
   const darkMode = useSelector((state) => state.layout.darkMode);
-
-  const theme = createMuiTheme({
+  const darkTheme = {
     palette: {
-      type: darkMode ? 'dark' : 'light',
+      type: 'dark',
     },
-  });
+  };
+
+  const lightTheme = {
+    palette: {
+      type: 'light',
+    },
+  };
+
+  const theme = createMuiTheme(darkMode === 'on' ? darkTheme : lightTheme);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

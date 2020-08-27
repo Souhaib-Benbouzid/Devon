@@ -1,6 +1,5 @@
 import { actionTypes } from '../constants';
 
-export const toggleDarkMode = (payload) => ({
+export const toggleDarkMode = () => ({
   type: actionTypes.ToggleDarkMode,
-  payload,
 });
