@@ -1,30 +1,3 @@
-// import { DropdownButton, Dropdown } from 'react-bootstrap';
-
-// const LanguagePicker = ({ lang, setLanguage }) => {
-//   const { t, i18n } = useTranslation();
-
-//   const changeLang = (val) => {
-//     setLanguage(val);
-//     i18n.changeLanguage(val);
-//   };
-
-//   return (
-//     <>
-//       <DropdownButton id='dropdown-basic-button' title={lang}>
-//         {languages.map((language, i) => (
-//           <Dropdown.Item
-//             eventKey={language.eventKey}
-//             key={i}
-//             onSelect={changeLang}
-//           >
-//             {language.name}
-//           </Dropdown.Item>
-//         ))}
-//       </DropdownButton>
-//     </>
-//   );
-// };
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -46,7 +19,7 @@ export const LanguagePicker = ({ props }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.layout.language);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const handleChange = (event) => {
     dispatch({
