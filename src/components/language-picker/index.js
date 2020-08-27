@@ -31,7 +31,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { actionTypes } from '../../redux/constants';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,20 +42,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const LanguagePicker = ({ props }) => {
-  // const { t, i18n } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.layout.language);
+  const { t, i18n } = useTranslation();
 
   const handleChange = (event) => {
     dispatch({
       type: actionTypes.CHANGE_LANGUAGE,
       payload: event.target.value,
     });
+    i18n.changeLanguage(event.target.value);
   };
 
   return (
     <div {...props}>
+      <div>{t('test')}</div>
       <FormControl>
         <Select
           value={language}
