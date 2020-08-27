@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { LanguagePicker } from '../../components/language-picker';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -11,6 +12,7 @@ const useStyle = makeStyles((theme) => ({
     opacity: 0.8,
     flexWrap: 'row-revers',
     marginTop: 'auto',
+    alignItems: 'flex-end',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
       justifyContent: 'center',
@@ -24,6 +26,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   footerLink: {
+    display: 'inline-flex',
     textDecoration: 'none',
     padding: '0 10px',
     color: theme.palette.text.primary,
@@ -50,6 +53,7 @@ export default function Footer({ footer: { links, copyright } }) {
             {link.name}
           </a>
         ))}
+        <LanguagePicker className={classes.footerLink} />
       </div>
     </div>
   );
