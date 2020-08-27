@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import { NavLink } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,9 +9,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ToggleDarkMode from '../../components/dark-mode-toggle';
+import { LanguagePicker } from '../../components/language-picker';
 
 import UserCard from '../../components/user-card';
-import { NavLink } from 'react-router-dom';
 import LogoCard from '../../components/logo-card';
 
 const useStyles = makeStyles((theme) => ({
@@ -163,6 +164,7 @@ export default function SwipeableTemporaryDrawer({
           </List>
         </div>
         <div style={{ margin: 'auto auto 30px auto' }}>
+          <LanguagePicker className={classes.footerLink} />
           <ToggleDarkMode />
         </div>
       </SwipeableDrawer>

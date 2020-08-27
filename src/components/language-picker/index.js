@@ -36,8 +36,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
-  selectEmpty: {
-    marginTop: theme.spacing(1),
+  root: {
+    display: 'inline-flex',
+    padding: '3px',
   },
 }));
 
@@ -52,17 +53,16 @@ export const LanguagePicker = ({ props }) => {
       type: actionTypes.CHANGE_LANGUAGE,
       payload: event.target.value,
     });
+    console.log('en');
     i18n.changeLanguage(event.target.value);
   };
 
   return (
-    <div {...props}>
-      <div>{t('test')}</div>
+    <div {...props} className={classes.root}>
       <FormControl>
         <Select
           value={language}
           onChange={handleChange}
-          className={classes.selectEmpty}
           inputProps={{ 'aria-label': 'Without label' }}
         >
           <MenuItem value={'en'}>English</MenuItem>
