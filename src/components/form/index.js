@@ -1,10 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 
 import { MdLockOutline } from 'react-icons/md';
-
-import { auth } from '../../firebase';
-import { AuthContext } from '../../auth';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -47,10 +44,9 @@ const useStyle = makeStyles((theme) => ({
 const Form = ({ isLogin, history }) => {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const { error, data, isAuth } = useSelector((state) => state.user);
+  const { error, isAuth } = useSelector((state) => state.user);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formError, setFormError] = useState('');
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -68,27 +64,6 @@ const Form = ({ isLogin, history }) => {
       password: '',
       isSubmitting: false,
     });
-  };
-
-  const handleError = (error) => {
-    switch (error.code) {
-      case 'auth/user-not-found':
-        setFormError('there is no user with this information');
-        break;
-      case 'auth/weak-password':
-        setFormError('weak password.');
-        break;
-      case 'auth/email-already-in-use':
-        setFormError('This email is already in use. Please login');
-        break;
-      case 'auth/wrong-password':
-        setFormError('Wrong Credentials');
-        break;
-
-      default:
-        console.log(error.code);
-        setFormError('something went wrong');
-    }
   };
 
   const handleSubmit = async (e) => {

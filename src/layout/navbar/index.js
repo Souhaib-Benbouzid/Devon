@@ -145,6 +145,9 @@ export default function ({
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>
+                  <Typography variant='body1'>{data.displayName}</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
                   <Typography type='submit' variant='body1'>
                     Profile
                   </Typography>
