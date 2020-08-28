@@ -1,3 +1,22 @@
 {
-  "test": "تجربة"
+  "login": "دخول",
+  "register": "تسجيل",
+  "home": "الرئيسية",
+  "about us": "من نحن",
+  "about": "من نحن",
+  "contact": "اتصل بنا",
+  "Profile": "الحساب",
+  "hire me": "وضفني",
+  "about me": "عني",
+  "blog": "المدونة",
+  "licence": "رخصة",
+  "Password": "كلمة المرور",
+  "Name": "الاسم",
+  "Full Name": "الاسم الكامل",
+  "Email": "ايميل",
+  "Your Email": "ضع ايميلك",
+  "Forget Password ?": "نسيت كلمة المرور؟",
+  "Already have an Account ? Login": "لديك حساب ؟ تسجيل الدخول",
+  "You don't have an Account ? Create New Account": "ليس لديك حساب؟ تسجيل حساب جديد",
+  "Logout": "تسجيل الخروج"
 }

@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, register } from '../../redux/actions/user';
 
@@ -45,7 +45,7 @@ const Form = ({ isLogin, history }) => {
   const classes = useStyle();
   const dispatch = useDispatch();
   const { error, isAuth } = useSelector((state) => state.user);
-
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [values, setValues] = useState({
     name: '',
@@ -88,15 +88,17 @@ const Form = ({ isLogin, history }) => {
       <Avatar className={classes.avatar}>
         <MdLockOutline />
       </Avatar>
-      <Typography variant='h6'>{isLogin ? 'Log In' : 'Register'}</Typography>
-      <Typography variant='body2'>{error}</Typography>
+      <Typography variant='h6' style={{ textTransform: 'capitalize' }}>
+        {isLogin ? t('login') : t('register')}
+      </Typography>
+      <Typography variant='body2'>{t(error)}</Typography>
       <form onSubmit={handleSubmit} className={classes.form}>
         {isLogin ? null : (
           <TextField
             className={classes.textField}
             id='name'
             name='name'
-            label='Name'
+            label={t('Name')}
             value={values.name}
             onChange={handleChange}
             fullWidth
@@ -112,7 +114,7 @@ const Form = ({ isLogin, history }) => {
           className={classes.textField}
           id='email'
           name='email'
-          label='Email'
+          label={t('Email')}
           value={values.email}
           onChange={handleChange}
           type='email'
@@ -129,7 +131,7 @@ const Form = ({ isLogin, history }) => {
           className={classes.textField}
           id='password'
           name='password'
-          label='Password'
+          label={t('Password')}
           value={values.password}
           onChange={handleChange}
           type='password'
@@ -150,7 +152,7 @@ const Form = ({ isLogin, history }) => {
           fullWidth
           className={classes.submit}
         >
-          {isLogin ? 'Login' : 'Register'}
+          {isLogin ? t('login') : t('register')}
         </Button>
       </form>
       <Typography
@@ -167,16 +169,16 @@ const Form = ({ isLogin, history }) => {
           onClick={() => alert('reset password')}
           className={classes.Link}
         >
-          Forget Password ?
+          {t('Forget Password ?')}
         </Link>
 
         {isLogin ? (
           <Link to='/register' className={classes.Link}>
-            You don't have an Account ? Create New Account
+            {t("You don't have an Account ? Create New Account")}
           </Link>
         ) : (
           <Link to='/login' className={classes.Link}>
-            Already have an Account ? Login
+            {t('Already have an Account ? Login')}
           </Link>
         )}
       </Typography>

@@ -10,7 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ToggleDarkMode from '../../components/dark-mode-toggle';
 import { LanguagePicker } from '../../components/language-picker';
-
+import { useTranslation } from 'react-i18next';
 import UserCard from '../../components/user-card';
 import LogoCard from '../../components/logo-card';
 
@@ -59,7 +59,7 @@ export default function SwipeableTemporaryDrawer({
   Logo,
 }) {
   const classes = useStyles();
-
+  const { t } = useTranslation();
   const toggleDrawer = (event) => {
     setOpenSidebar(!openSidebar);
     if (
@@ -107,7 +107,7 @@ export default function SwipeableTemporaryDrawer({
                     {handleUserLinks.login.icon}
                   </ListItemIcon>
                   <ListItemText
-                    primary={handleUserLinks.login.name}
+                    primary={t(handleUserLinks.login.name)}
                     className={classes.listItemText}
                   />
                 </NavLink>
@@ -128,7 +128,7 @@ export default function SwipeableTemporaryDrawer({
                     {handleUserLinks.register.icon}
                   </ListItemIcon>
                   <ListItemText
-                    primary={handleUserLinks.register.name}
+                    primary={t(handleUserLinks.register.name)}
                     className={classes.listItemText}
                   />
                 </NavLink>
@@ -155,7 +155,7 @@ export default function SwipeableTemporaryDrawer({
                     {link.icon}
                   </ListItemIcon>
                   <ListItemText
-                    primary={link.name}
+                    primary={t(link.name)}
                     className={classes.listItemText}
                   />
                 </NavLink>

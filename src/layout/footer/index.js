@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { LanguagePicker } from '../../components/language-picker';
 import Hidden from '@material-ui/core/Hidden';
+import { useTranslation } from 'react-i18next';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,7 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Footer({ footer: { links, copyright } }) {
   const classes = useStyle();
+  const { t } = useTranslation();
   return (
     <div className={classes.root}>
       <div className={classes.copyright}>
@@ -60,7 +62,7 @@ export default function Footer({ footer: { links, copyright } }) {
       <div className={classes.links}>
         {links.map((link, i) => (
           <a href={link.path} key={i} className={classes.footerLink}>
-            {link.name}
+            {t(link.name)}
           </a>
         ))}
         <Hidden smDown>

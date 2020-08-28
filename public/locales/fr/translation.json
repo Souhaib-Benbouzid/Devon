@@ -1,3 +1,20 @@
 {
-  "test": "fransh"
+  "login": "Connectez-vous",
+  "register": "S'inscrire",
+  "home": "Accueil",
+  "about": "info",
+  "contact": "Contactez Nous",
+  "Profile": "Profile",
+  "hire me": "Embauche moi",
+  "about me": "à propos de moi",
+  "blog": "Blog",
+  "licence": "Licence",
+  "password": "password",
+  "Name": "Nom",
+  "Full Name": "Nom",
+  "Email": "Email",
+  "Your Email": "Votre e-mail",
+  "Forget Password ?": "Mot de passe oublié?",
+  "Already have an Account ? Login": "Vous avez déjà un compte? Connexion",
+  "You don't have an Account ? Create New Account": "Vous n'avez pas de compte? Créer un nouveau compte"
 }

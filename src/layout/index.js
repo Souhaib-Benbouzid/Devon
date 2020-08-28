@@ -77,10 +77,10 @@ const Layout = ({ children }) => {
 
   const footer = {
     links: [
-      { path: 'https://www.sohaibbenbouzid.com/', name: 'Hire Me' },
-      { path: 'https://www.sohaibbenbouzid.com/', name: 'About Us' },
-      { path: 'https://www.sohaibbenbouzid.com/', name: 'Blog' },
-      { path: 'https://www.sohaibbenbouzid.com/', name: 'Licence' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'hire me' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'about' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'blog' },
+      { path: 'https://www.sohaibbenbouzid.com/', name: 'licence' },
     ],
     copyright: {
       date: '2020',

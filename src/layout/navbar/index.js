@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ToggleDarkMode from '../../components/dark-mode-toggle';
 import { MdAccountCircle, MdMenu } from 'react-icons/md';
 import LogoCard from '../../components/logo-card';
+import { useTranslation } from 'react-i18next';
 
 import { logout } from '../../redux/actions/user';
 
@@ -71,10 +72,11 @@ export default function ({
   ...props
 }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { isAuth, data } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -111,7 +113,7 @@ export default function ({
                   to={link.path}
                   key={i}
                 >
-                  {link.name}
+                  {t(link.name)}
                 </NavLink>
               ))}
             </div>
@@ -149,7 +151,7 @@ export default function ({
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <Typography type='submit' variant='body1'>
-                    Profile
+                    {t('Profile')}
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
@@ -158,7 +160,7 @@ export default function ({
                     variant='body1'
                     onClick={() => dispatch(logout())}
                   >
-                    Logout
+                    {t('Logout')}
                   </Typography>
                 </MenuItem>
               </Menu>
@@ -172,7 +174,7 @@ export default function ({
                 to={handleUserLinks.login.path}
               >
                 <Hidden mdDown>{handleUserLinks.login.icon}</Hidden>
-                {handleUserLinks.login.name}
+                {t(handleUserLinks.login.name)}
               </NavLink>
               <NavLink
                 exact
@@ -181,7 +183,7 @@ export default function ({
                 to={handleUserLinks.register.path}
               >
                 <Hidden mdDown>{handleUserLinks.register.icon}</Hidden>
-                {handleUserLinks.register.name}
+                {t(handleUserLinks.register.name)}
               </NavLink>
             </>
           )}
