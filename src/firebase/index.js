@@ -3,15 +3,26 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
 
+const {
+  REACT_APP_apiKey,
+  REACT_APP_authDomain,
+  REACT_APP_databaseURL,
+  REACT_APP_projectId,
+  REACT_APP_storageBucket,
+  REACT_APP_messagingSenderId,
+  REACT_APP_appId,
+  REACT_APP_measurementId,
+} = process.env;
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyCFDPxPUVsE-U18ab8VWpCkYCNWh30YWzo',
-  authDomain: 'admin-djihan.firebaseapp.com',
-  databaseURL: 'https://admin-djihan.firebaseio.com',
-  projectId: 'admin-djihan',
-  storageBucket: 'admin-djihan.appspot.com',
-  messagingSenderId: '523408276903',
-  appId: '1:523408276903:web:732b1d1a6c54cfbe5c8a82',
-  measurementId: 'G-BTV435MYL0',
+  apiKey: REACT_APP_apiKey,
+  authDomain: REACT_APP_authDomain,
+  databaseURL: REACT_APP_databaseURL,
+  projectId: REACT_APP_projectId,
+  storageBucket: REACT_APP_storageBucket,
+  messagingSenderId: REACT_APP_messagingSenderId,
+  appId: REACT_APP_appId,
+  measurementId: REACT_APP_measurementId,
 };
 export const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
